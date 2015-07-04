@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     }
     
     private func objectMapperRequest() {
-        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
             .response { (request, response, data, error) in
                 if let e = error {
                     println("ERROR = \(e)")
@@ -70,11 +70,11 @@ class ViewController: UIViewController {
                 
                 if let d: AnyObject = data {
                 
-                    let json: NSArray = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSArray
+                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
                 
-                    let restroom = Mapper<ModelObjectMapper>().map(json[0])
+                    let repo = Mapper<RepoObjectMapper>().map(json)
                     
-                    println(restroom!)
+                    println(repo!)
                 }
         }
     }
