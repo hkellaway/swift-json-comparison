@@ -33,14 +33,24 @@ class ViewController: UIViewController {
     
     func requestFor(library: Library) {
         
-        let completion = completionForLibrary(library)
-        
-        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters: nil).response(completion)
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters: nil).response { (request, response, data, error) in
+            
+            if let e = error {
+                println("ERROR = \(e)")
+            }
+            
+            if let d: AnyObject = data {
+                
+                let responseHandler = self.responseHandlerForLibrary(library)
+                
+                responseHandler(d)
+            }
+        }
     }
     
     // MARK: Helpers
     
-    private func completionForLibrary(library: Library) -> ((NSURLRequest, NSHTTPURLResponse?, AnyObject?, NSError?) -> ()) {
+    private func responseHandlerForLibrary(library: Library) -> ((AnyObject) -> ()) {
         switch library {
         case .Argo:
                 return argoResponseHandler
@@ -53,54 +63,46 @@ class ViewController: UIViewController {
         }
     }
     
-    private func argoResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
-        if let d: AnyObject = data {
+    private func argoResponseHandler(data: AnyObject) {
+        
+        let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
             
-            let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+        let repo: RepoArgo? = decode(json)
             
-            let repo: RepoArgo? = decode(json)
-            
-            println(repo!)
-        }
+        println(repo!)
     }
     
-    private func jsonJoyResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
-        if let d: AnyObject = data {
+    private func jsonJoyResponseHandler(data: AnyObject) {
+        
+        let repo = RepoJSONJoy(JSONDecoder(data))
     
-            let repo = RepoJSONJoy(JSONDecoder(d))
-    
-            println(repo)
-        }
+        println(repo)
     }
     
-    private func objectMapperResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
-        if let d: AnyObject = data {
+    private func objectMapperResponseHandler(data: AnyObject) {
+        
+        let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
             
-            let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+        let repo = Mapper<RepoObjectMapper>().map(json)
             
-            let repo = Mapper<RepoObjectMapper>().map(json)
-            
-            println(repo!)
-        }
+        println(repo!)
     }
     
-    private func swiftyJSONResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
-        if let d: AnyObject = data {
+    private func swiftyJSONResponseHandler(data: AnyObject) {
+        
+        let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
+        var repo: RepoSwiftyJSON?
             
-            let json = JSON(data: d as! NSData, options: .allZeros, error: nil)
-            
-            if let repoDict = json.dictionary {
+        if let repoDict = json.dictionary {
                 
-                let repoId = repoDict["id"]!.int!
-                let name = repoDict["name"]!.string!
-                let desc = repoDict["description"]!.string!
-                let url = repoDict["html_url"]!.URL!
+            let repoId = repoDict["id"]!.int!
+            let name = repoDict["name"]!.string!
+            let desc = repoDict["description"]!.string!
+            let url = repoDict["html_url"]!.URL!
                 
-                let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
-                
-                println(repo)
-            }
+            repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
         }
+        
+        println(repo!)
     }
 }
-
