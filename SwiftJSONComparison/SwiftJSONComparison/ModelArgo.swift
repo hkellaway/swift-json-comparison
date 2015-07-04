@@ -28,6 +28,6 @@ extension ModelArgo: Decodable {
 
 extension ModelArgo: Printable {
     var description: String {
-        return "restroomId: \(restroomId)\nname: \(name)"
+        return "ModelArgo - restroomId: \(restroomId)\nname: \(name)"
     }
 }
