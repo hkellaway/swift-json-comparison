@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     }
     
     private func jsonJoyRequest() {
-        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
             .response { (request, response, data, error) in
                 if let e = error {
                     println("ERROR = \(e)")
@@ -54,10 +54,9 @@ class ViewController: UIViewController {
                 
                 if let d: AnyObject = data {
                     
-                    let restrooms = ModelsJSONJoy(JSONDecoder(d))
-                    let restroom: ModelJSONJoy? = restrooms.restrooms?.first
+                    let repo: RepoJSONJoy? = RepoJSONJoy(JSONDecoder(d))
                     
-                    println(restroom!)
+                    println(repo!)
                 }
         }
     }
