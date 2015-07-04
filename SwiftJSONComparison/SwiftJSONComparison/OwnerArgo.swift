@@ -1,5 +1,5 @@
 //
-//  RepoArgo.swift
+//  OwnerArgo.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -26,36 +26,26 @@
 import Argo
 import Runes
 
-struct RepoArgo {
-    let repoId: Int
-    let name: String
-    let desc: String?
-    let url: NSURL
-    let owner: OwnerArgo
+struct OwnerArgo {
+    let ownerId: Int
+    let username: String
 }
 
-extension RepoArgo: Decodable {
-    static func create(repoId: Int)(name: String)(desc: String?)(urlString: String)(owner: OwnerArgo) -> RepoArgo {
+extension OwnerArgo: Decodable {
+    static func create(ownerId: Int)(username: String) -> OwnerArgo {
         
-        return RepoArgo(repoId: repoId, name: name, desc: desc, url: urlFromString(urlString)!, owner: owner)
+        return OwnerArgo(ownerId: ownerId, username: username)
     }
     
-    static func decode(j: JSON) -> Decoded<RepoArgo> {
-        return RepoArgo.create
+    static func decode(j: JSON) -> Decoded<OwnerArgo> {
+        return OwnerArgo.create
             <^> j <| "id"
-            <*> j <| "name"
-            <*> j <|? "description"
-            <*> j <| "html_url"
-            <*> j <| "owner"
-    }
-    
-    private static func urlFromString(str: String) -> NSURL? {
-        return NSURL(string: str)
+            <*> j <| "login"
     }
 }
 
-extension RepoArgo: Printable {
+extension OwnerArgo: Printable {
     var description: String {
-        return "RepoArgo - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
+        return "OwnerArgo - ownerId: \(ownerId); username: \(username)"
     }
 }

@@ -17,6 +17,7 @@
 		DC546A6E1B485D2600284708 /* RepoSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A6D1B485D2600284708 /* RepoSwiftyJSON.swift */; };
 		DC546A701B48606400284708 /* RepoObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A6F1B48606400284708 /* RepoObjectMapper.swift */; };
 		DC546A721B48670B00284708 /* RepoJSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A711B48670B00284708 /* RepoJSONJoy.swift */; };
+		DCE6F58E1B489DEE00A6E22A /* OwnerArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F58D1B489DEE00A6E22A /* OwnerArgo.swift */; };
 		F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		DC546A6D1B485D2600284708 /* RepoSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSwiftyJSON.swift; sourceTree = "<group>"; };
 		DC546A6F1B48606400284708 /* RepoObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoObjectMapper.swift; sourceTree = "<group>"; };
 		DC546A711B48670B00284708 /* RepoJSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoJSONJoy.swift; sourceTree = "<group>"; };
+		DCE6F58D1B489DEE00A6E22A /* OwnerArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerArgo.swift; sourceTree = "<group>"; };
 		F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftJSONComparison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				DC546A491B484FC400284708 /* AppDelegate.swift */,
+				DCE6F58D1B489DEE00A6E22A /* OwnerArgo.swift */,
 				DC546A691B4852DC00284708 /* RepoArgo.swift */,
 				DC546A711B48670B00284708 /* RepoJSONJoy.swift */,
 				DC546A6F1B48606400284708 /* RepoObjectMapper.swift */,
@@ -299,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCE6F58E1B489DEE00A6E22A /* OwnerArgo.swift in Sources */,
 				DC546A6A1B4852DC00284708 /* RepoArgo.swift in Sources */,
 				DC546A6E1B485D2600284708 /* RepoSwiftyJSON.swift in Sources */,
 				DC546A721B48670B00284708 /* RepoJSONJoy.swift in Sources */,
