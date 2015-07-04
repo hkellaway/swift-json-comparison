@@ -25,3 +25,9 @@ extension ModelArgo: Decodable {
             <*> j <| "name"
     }
 }
+
+extension ModelArgo: Printable {
+    var description: String {
+        return "restroomId: \(restroomId)\nname: \(name)"
+    }
+}

@@ -10,3 +10,9 @@ struct ModelSwiftyJSON {
     let restroomId: Int
     let name: String
 }
+
+extension ModelSwiftyJSON: Printable {
+    var description: String {
+        return "restroomId: \(restroomId)\nname: \(name)"
+    }
+}
