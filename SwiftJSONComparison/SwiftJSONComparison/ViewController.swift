@@ -54,9 +54,9 @@ class ViewController: UIViewController {
                 
                 if let d: AnyObject = data {
                     
-                    let repo: RepoJSONJoy? = RepoJSONJoy(JSONDecoder(d))
+                    let repo = RepoJSONJoy(JSONDecoder(d))
                     
-                    println(repo!)
+                    println(repo)
                 }
         }
     }
@@ -80,28 +80,27 @@ class ViewController: UIViewController {
     }
     
     private func swiftyJSONRequest() {
-        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
             .response { (request, response, data, error) in
                 if let e = error {
                     println("ERROR = \(e)")
                 }
                 
-                let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
+                if let d: AnyObject = data {
+                
+                    let json = JSON(data: d as! NSData, options: .allZeros, error: nil)
 
-                if let restroomsArray = json.array {
-                     var restrooms = [ModelSwiftyJSON]()
-                    
-                    for restroomDict in restroomsArray {
-                        var restroomId: Int? = restroomDict["id"].int
-                        var name: String? = restroomDict["name"].string
+                    if let repoDict = json.dictionary {
                         
-                        var restroom: ModelSwiftyJSON? = ModelSwiftyJSON(restroomId: restroomId!, name: name!)
-                        restrooms.append(restroom!)
+                        let repoId = repoDict["id"]!.int!
+                        let name = repoDict["name"]!.string!
+                        let desc = repoDict["description"]!.string!
+                        let url = repoDict["html_url"]!.URL!
+                        
+                        let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
+                    
+                        println(repo)
                     }
-                    
-                    let restroom: ModelSwiftyJSON? = restrooms[0]
-                    
-                    println(restroom!)
                 }
         }
     }
