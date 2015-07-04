@@ -5,6 +5,7 @@ target 'SwiftJSONComparison' do
 
 pod 'Alamofire', '1.2.3'
 pod 'Argo', '1.0.3'
+pod 'SwiftyJSON', '2.2.0'
 
 end
 

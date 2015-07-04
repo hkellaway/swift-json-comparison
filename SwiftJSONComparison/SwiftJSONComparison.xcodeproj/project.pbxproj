@@ -14,6 +14,7 @@
 		DC546A541B484FC400284708 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC546A521B484FC400284708 /* LaunchScreen.xib */; };
 		DC546A601B484FC500284708 /* SwiftJSONComparisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */; };
 		DC546A6A1B4852DC00284708 /* ModelArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A691B4852DC00284708 /* ModelArgo.swift */; };
+		DC546A6E1B485D2600284708 /* ModelSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A6D1B485D2600284708 /* ModelSwiftyJSON.swift */; };
 		F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		DC546A5E1B484FC400284708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftJSONComparisonTests.swift; sourceTree = "<group>"; };
 		DC546A691B4852DC00284708 /* ModelArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelArgo.swift; sourceTree = "<group>"; };
+		DC546A6D1B485D2600284708 /* ModelSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSwiftyJSON.swift; sourceTree = "<group>"; };
 		F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftJSONComparison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,12 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				DC546A491B484FC400284708 /* AppDelegate.swift */,
+				DC546A691B4852DC00284708 /* ModelArgo.swift */,
+				DC546A6D1B485D2600284708 /* ModelSwiftyJSON.swift */,
 				DC546A4B1B484FC400284708 /* ViewController.swift */,
 				DC546A4D1B484FC400284708 /* Main.storyboard */,
 				DC546A501B484FC400284708 /* Images.xcassets */,
 				DC546A521B484FC400284708 /* LaunchScreen.xib */,
 				DC546A471B484FC400284708 /* Supporting Files */,
-				DC546A691B4852DC00284708 /* ModelArgo.swift */,
 			);
 			path = SwiftJSONComparison;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC546A6A1B4852DC00284708 /* ModelArgo.swift in Sources */,
+				DC546A6E1B485D2600284708 /* ModelSwiftyJSON.swift in Sources */,
 				DC546A4C1B484FC400284708 /* ViewController.swift in Sources */,
 				DC546A4A1B484FC400284708 /* AppDelegate.swift in Sources */,
 			);
