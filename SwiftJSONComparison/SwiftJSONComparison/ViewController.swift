@@ -6,20 +6,31 @@
 //  Copyright (c) 2015 Harlan Kellaway. All rights reserved.
 //
 
+import Alamofire
+import Argo
 import UIKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+            .response { (request, response, data, error) in
+                if let e = error {
+                    println("ERROR = \(e)")
+                }
+                
+                if let d: AnyObject = data {
+                    
+                    let json: NSArray = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSArray
+                    
+                    let restroom: ModelArgo? = decode(json[0])
+                    
+                    println("Id: \(restroom!.restroomId); name: \(restroom!.name)")
+                }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 

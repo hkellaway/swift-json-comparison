@@ -1,0 +1,6 @@
+framework module Box {
+  umbrella header "Pods-SwiftJSONComparison-Box-umbrella.h"
+
+  export *
+  module * { export * }
+}

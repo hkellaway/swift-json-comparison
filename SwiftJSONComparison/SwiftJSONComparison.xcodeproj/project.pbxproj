@@ -13,6 +13,8 @@
 		DC546A511B484FC400284708 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC546A501B484FC400284708 /* Images.xcassets */; };
 		DC546A541B484FC400284708 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC546A521B484FC400284708 /* LaunchScreen.xib */; };
 		DC546A601B484FC500284708 /* SwiftJSONComparisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */; };
+		DC546A6A1B4852DC00284708 /* ModelArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A691B4852DC00284708 /* ModelArgo.swift */; };
+		F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E8F0B9251C2648F6136F467 /* Pods-SwiftJSONComparison.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftJSONComparison.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftJSONComparison/Pods-SwiftJSONComparison.debug.xcconfig"; sourceTree = "<group>"; };
+		A287E3194085D6531FB9579E /* Pods-SwiftJSONComparison.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftJSONComparison.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftJSONComparison/Pods-SwiftJSONComparison.release.xcconfig"; sourceTree = "<group>"; };
 		DC546A441B484FC400284708 /* SwiftJSONComparison.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftJSONComparison.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC546A481B484FC400284708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC546A491B484FC400284708 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		DC546A591B484FC400284708 /* SwiftJSONComparisonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftJSONComparisonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC546A5E1B484FC400284708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftJSONComparisonTests.swift; sourceTree = "<group>"; };
+		DC546A691B4852DC00284708 /* ModelArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelArgo.swift; sourceTree = "<group>"; };
+		F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftJSONComparison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +63,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4075D2E31BFBB9639A4DA279 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E8F0B9251C2648F6136F467 /* Pods-SwiftJSONComparison.debug.xcconfig */,
+				A287E3194085D6531FB9579E /* Pods-SwiftJSONComparison.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BCDAE8842AD560F3DFD0B911 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DC546A3B1B484FC400284708 = {
 			isa = PBXGroup;
 			children = (
 				DC546A461B484FC400284708 /* SwiftJSONComparison */,
 				DC546A5C1B484FC400284708 /* SwiftJSONComparisonTests */,
 				DC546A451B484FC400284708 /* Products */,
+				4075D2E31BFBB9639A4DA279 /* Pods */,
+				BCDAE8842AD560F3DFD0B911 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +109,7 @@
 				DC546A501B484FC400284708 /* Images.xcassets */,
 				DC546A521B484FC400284708 /* LaunchScreen.xib */,
 				DC546A471B484FC400284708 /* Supporting Files */,
+				DC546A691B4852DC00284708 /* ModelArgo.swift */,
 			);
 			path = SwiftJSONComparison;
 			sourceTree = "<group>";
@@ -119,9 +146,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC546A631B484FC500284708 /* Build configuration list for PBXNativeTarget "SwiftJSONComparison" */;
 			buildPhases = (
+				142FD165C1F796830014AFFE /* Check Pods Manifest.lock */,
 				DC546A401B484FC400284708 /* Sources */,
 				DC546A411B484FC400284708 /* Frameworks */,
 				DC546A421B484FC400284708 /* Resources */,
+				17E0DBE9C674ABA032728D4D /* Embed Pods Frameworks */,
+				FEC88C1ECE7A08518ED05C96 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,11 +237,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		142FD165C1F796830014AFFE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		17E0DBE9C674ABA032728D4D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftJSONComparison/Pods-SwiftJSONComparison-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FEC88C1ECE7A08518ED05C96 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftJSONComparison/Pods-SwiftJSONComparison-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DC546A401B484FC400284708 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC546A6A1B4852DC00284708 /* ModelArgo.swift in Sources */,
 				DC546A4C1B484FC400284708 /* ViewController.swift in Sources */,
 				DC546A4A1B484FC400284708 /* AppDelegate.swift in Sources */,
 			);
@@ -340,6 +419,7 @@
 		};
 		DC546A641B484FC500284708 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E8F0B9251C2648F6136F467 /* Pods-SwiftJSONComparison.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftJSONComparison/Info.plist;
@@ -350,6 +430,7 @@
 		};
 		DC546A651B484FC500284708 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A287E3194085D6531FB9579E /* Pods-SwiftJSONComparison.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftJSONComparison/Info.plist;
@@ -411,6 +492,7 @@
 				DC546A651B484FC500284708 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC546A661B484FC500284708 /* Build configuration list for PBXNativeTarget "SwiftJSONComparisonTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +501,7 @@
 				DC546A681B484FC500284708 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
