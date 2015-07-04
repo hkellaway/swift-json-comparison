@@ -9,7 +9,7 @@
 import Argo
 import Runes
 
-public struct ModelArgo {
+struct ModelArgo {
     let restroomId: Int
     let name: String
 }
@@ -19,7 +19,7 @@ extension ModelArgo: Decodable {
         return ModelArgo(restroomId: restroomId, name: name)
     }
     
-    public static func decode(j: JSON) -> Decoded<ModelArgo> {
+    static func decode(j: JSON) -> Decoded<ModelArgo> {
         return ModelArgo.create
             <^> j <| "id"
             <*> j <| "name"
