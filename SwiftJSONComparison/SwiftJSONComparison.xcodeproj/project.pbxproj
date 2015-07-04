@@ -20,6 +20,7 @@
 		DCE6F58E1B489DEE00A6E22A /* OwnerArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F58D1B489DEE00A6E22A /* OwnerArgo.swift */; };
 		DCE6F5901B48A08800A6E22A /* OwnerJSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F58F1B48A08800A6E22A /* OwnerJSONJoy.swift */; };
 		DCE6F5921B48A21500A6E22A /* OwnerObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5911B48A21500A6E22A /* OwnerObjectMapper.swift */; };
+		DCE6F5961B48A37700A6E22A /* OwnerSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5951B48A37700A6E22A /* OwnerSwiftyJSON.swift */; };
 		F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		DCE6F58D1B489DEE00A6E22A /* OwnerArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerArgo.swift; sourceTree = "<group>"; };
 		DCE6F58F1B48A08800A6E22A /* OwnerJSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerJSONJoy.swift; sourceTree = "<group>"; };
 		DCE6F5911B48A21500A6E22A /* OwnerObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerObjectMapper.swift; sourceTree = "<group>"; };
+		DCE6F5951B48A37700A6E22A /* OwnerSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerSwiftyJSON.swift; sourceTree = "<group>"; };
 		F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftJSONComparison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 				DC546A711B48670B00284708 /* RepoJSONJoy.swift */,
 				DCE6F5911B48A21500A6E22A /* OwnerObjectMapper.swift */,
 				DC546A6F1B48606400284708 /* RepoObjectMapper.swift */,
+				DCE6F5951B48A37700A6E22A /* OwnerSwiftyJSON.swift */,
 				DC546A6D1B485D2600284708 /* RepoSwiftyJSON.swift */,
 				DC546A4B1B484FC400284708 /* ViewController.swift */,
 				DC546A4D1B484FC400284708 /* Main.storyboard */,
@@ -311,6 +314,7 @@
 				DCE6F5921B48A21500A6E22A /* OwnerObjectMapper.swift in Sources */,
 				DCE6F58E1B489DEE00A6E22A /* OwnerArgo.swift in Sources */,
 				DC546A6A1B4852DC00284708 /* RepoArgo.swift in Sources */,
+				DCE6F5961B48A37700A6E22A /* OwnerSwiftyJSON.swift in Sources */,
 				DC546A6E1B485D2600284708 /* RepoSwiftyJSON.swift in Sources */,
 				DC546A721B48670B00284708 /* RepoJSONJoy.swift in Sources */,
 				DCE6F5901B48A08800A6E22A /* OwnerJSONJoy.swift in Sources */,

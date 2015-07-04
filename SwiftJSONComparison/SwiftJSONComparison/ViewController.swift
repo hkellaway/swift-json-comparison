@@ -42,13 +42,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        requestFor(.Argo)
-        requestFor(.JSONJoy)
-        requestFor(.ObjectMapper)
-        requestFor(.SwiftyJSON)
+        requestWith(.Argo)
+        requestWith(.JSONJoy)
+        requestWith(.ObjectMapper)
+        requestWith(.SwiftyJSON)
     }
     
-    func requestFor(library: Library) {
+    func requestWith(library: Library) {
 
         Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters: nil).response { (request, response, data, error) in
             
@@ -117,8 +117,16 @@ class ViewController: UIViewController {
             let name = repoDict["name"]!.string!
             let desc = repoDict["description"]!.string!
             let url = repoDict["html_url"]!.URL!
+            var owner: OwnerSwiftyJSON?
+            
+            if let ownerDict = repoDict["owner"]?.dictionary {
+                let ownerId = ownerDict["id"]!.int!
+                let username = ownerDict["login"]!.string!
                 
-            repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
+                owner = OwnerSwiftyJSON(ownerId: ownerId, username: username)
+                
+                repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url, owner: owner!)
+            }
         }
         
         println(repo!)

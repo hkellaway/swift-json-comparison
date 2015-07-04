@@ -1,5 +1,5 @@
 //
-//  RepoSwiftyJSON.swift
+//  OwnerSwiftyJSON.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -25,16 +25,13 @@
 
 import Foundation
 
-struct RepoSwiftyJSON {
-    let repoId: Int
-    let name: String
-    let desc: String?
-    let url: NSURL
-    let owner: OwnerSwiftyJSON
+struct OwnerSwiftyJSON {
+    let ownerId: Int
+    let username: String
 }
 
-extension RepoSwiftyJSON: Printable {
+extension OwnerSwiftyJSON: Printable {
     var description: String {
-        return "RepoSwiftyJSON - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
+        return "OwnerSwiftyJSON - ownerId: \(ownerId); name: \(username)"
     }
 }
