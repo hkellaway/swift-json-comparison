@@ -1,5 +1,5 @@
 //
-//  RepoJSONJoy.swift
+//  OwnerJSONJoy.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -25,28 +25,18 @@
 
 import JSONJoy
 
-struct RepoJSONJoy: JSONJoy {
-    let repoId: Int
-    let name: String
-    let desc: String?
-    var url: NSURL?
-    let owner: OwnerJSONJoy
+struct OwnerJSONJoy: JSONJoy {
+    let ownerId: Int
+    let username: String
     
     init(_ decoder: JSONDecoder) {
-        repoId = decoder["id"].integer!
-        name = decoder["name"].string!
-        desc = decoder["description"].string
-        owner =  OwnerJSONJoy(decoder["owner"])
-        url = urlFromString(decoder["html_url"].string!)!
-    }
-    
-    private func urlFromString(str: String) -> NSURL? {
-        return NSURL(string: str)
+        ownerId = decoder["id"].integer!
+        username = decoder["login"].string!
     }
 }
 
-extension RepoJSONJoy: Printable {
+extension OwnerJSONJoy: Printable {
     var description: String {
-        return "RepoJSONJoy - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\n\(owner)"
+        return "OwnerJSONJoy - ownerId: \(ownerId); username: \(username)"
     }
 }
