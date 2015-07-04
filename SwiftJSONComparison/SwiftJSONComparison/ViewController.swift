@@ -15,11 +15,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    enum Library:String {
-        case Argo = "Argo"
-        case JSONJoy = "JSON Joy"
-        case ObjectMapper = "Object Mapper"
-        case SwiftyJSON = "Swift JSON"
+    enum Library {
+        case Argo
+        case JSONJoy
+        case ObjectMapper
+        case SwiftyJSON
     }
     
     override func viewDidLoad() {
@@ -32,10 +32,11 @@ class ViewController: UIViewController {
     }
     
     func requestFor(library: Library) {
-        
+
         Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters: nil).response { (request, response, data, error) in
             
             if let e = error {
+                
                 println("ERROR = \(e)")
             }
             
@@ -81,7 +82,7 @@ class ViewController: UIViewController {
     
     private func objectMapperResponseHandler(data: AnyObject) {
         
-        let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
             
         let repo = Mapper<RepoObjectMapper>().map(json)
             
