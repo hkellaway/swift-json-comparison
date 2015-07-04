@@ -104,12 +104,12 @@
 			isa = PBXGroup;
 			children = (
 				DC546A491B484FC400284708 /* AppDelegate.swift */,
+				DC546A691B4852DC00284708 /* ModelArgo.swift */,
 				DC546A4B1B484FC400284708 /* ViewController.swift */,
 				DC546A4D1B484FC400284708 /* Main.storyboard */,
 				DC546A501B484FC400284708 /* Images.xcassets */,
 				DC546A521B484FC400284708 /* LaunchScreen.xib */,
 				DC546A471B484FC400284708 /* Supporting Files */,
-				DC546A691B4852DC00284708 /* ModelArgo.swift */,
 			);
 			path = SwiftJSONComparison;
 			sourceTree = "<group>";

@@ -8,6 +8,7 @@
 
 import Alamofire
 import Argo
+import SwiftyJSON
 import UIKit
 
 class ViewController: UIViewController {
@@ -15,6 +16,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        argoRequest()
+        swiftyJSONRequest()
+        
+    }
+    
+    // MARK: Helpers
+    
+    private func argoRequest() {
         Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
             .response { (request, response, data, error) in
                 if let e = error {
@@ -27,10 +36,30 @@ class ViewController: UIViewController {
                     
                     let restroom: ModelArgo? = decode(json[0])
                     
-                    println("Id: \(restroom!.restroomId); name: \(restroom!.name)")
+                    println("Id: \(restroom!.restroomId)\nName: \(restroom!.name)")
                 }
         }
     }
-
+    
+    private func swiftyJSONRequest() {
+        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+            .response { (request, response, data, error) in
+                if let e = error {
+                    println("ERROR = \(e)")
+                }
+                
+                let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
+                
+                let restroom = json[0]
+                
+                if let restroomId = restroom["id"].int {
+                    println("Id: \(restroomId)")
+                }
+                
+                if let name = restroom["name"].string {
+                    println("Name: \(name)")
+                }
+        }
+    }
 }
 
