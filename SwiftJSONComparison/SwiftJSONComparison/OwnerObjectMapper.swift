@@ -1,5 +1,5 @@
 //
-//  RepoObjectMapper.swift
+//  OwnerObjectMapper.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -25,28 +25,22 @@
 
 import ObjectMapper
 
-class RepoObjectMapper: Mappable {
-    var repoId: Int?
-    var name: String?
-    var desc: String?
-    var url: NSURL?
-    var owner: OwnerObjectMapper?
+class OwnerObjectMapper: Mappable {
+    var ownerId: Int?
+    var username: String?
     
     required init?(_ map: Map) {
         mapping(map)
     }
     
     func mapping(map: Map) {
-        repoId  <- map["id"]
-        name    <- map["name"]
-        desc    <- map["description"]
-        url     <- (map["html_url"], URLTransform())
-        owner   <- map["owner"]
+        ownerId     <- map["id"]
+        username    <- map["login"]
     }
 }
 
-extension RepoObjectMapper: Printable {
+extension OwnerObjectMapper: Printable {
     var description: String {
-        return "RepoObjectMapper - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
+        return "OwnerObjectMapper - ownerId: \(ownerId); username: \(username)"
     }
 }
