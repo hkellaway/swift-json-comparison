@@ -8,6 +8,7 @@
 
 import Alamofire
 import Argo
+import JSONJoy
 import ObjectMapper
 import SwiftyJSON
 import UIKit
@@ -18,6 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         argoRequest()
+        jsonJoyRequest()
         objectMapperRequest()
         swiftyJSONRequest()
         
@@ -37,6 +39,23 @@ class ViewController: UIViewController {
                     let json: NSArray = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSArray
                     
                     let restroom: ModelArgo? = decode(json[0])
+                    
+                    println(restroom!)
+                }
+        }
+    }
+    
+    private func jsonJoyRequest() {
+        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+            .response { (request, response, data, error) in
+                if let e = error {
+                    println("ERROR = \(e)")
+                }
+                
+                if let d: AnyObject = data {
+                    
+                    let restrooms = ModelsJSONJoy(JSONDecoder(d))
+                    let restroom: ModelJSONJoy? = restrooms.restrooms?.first
                     
                     println(restroom!)
                 }
@@ -81,7 +100,9 @@ class ViewController: UIViewController {
                         restrooms.append(restroom!)
                     }
                     
-                    println(restrooms[0])
+                    let restroom: ModelSwiftyJSON? = restrooms[0]
+                    
+                    println(restroom!)
                 }
         }
     }
