@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     // MARK: Helpers
     
     private func argoRequest() {
-        Alamofire.request(.GET, "http://www.refugerestrooms.org/api/v1/restrooms.json", parameters:nil)
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
             .response { (request, response, data, error) in
                 if let e = error {
                     println("ERROR = \(e)")
@@ -36,11 +36,11 @@ class ViewController: UIViewController {
                 
                 if let d: AnyObject = data {
                     
-                    let json: NSArray = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSArray
+                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
                     
-                    let restroom: ModelArgo? = decode(json[0])
+                    let repo: RepoArgo? = decode(json)
                     
-                    println(restroom!)
+                    println(repo!)
                 }
         }
     }
