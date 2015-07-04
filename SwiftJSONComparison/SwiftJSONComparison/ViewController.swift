@@ -49,15 +49,19 @@ class ViewController: UIViewController {
                 }
                 
                 let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
-                
-                let restroom = json[0]
-                
-                if let restroomId = restroom["id"].int {
-                    println("Id: \(restroomId)")
-                }
-                
-                if let name = restroom["name"].string {
-                    println("Name: \(name)")
+
+                if let restroomsArray = json.array {
+                     var restrooms = [ModelSwiftyJSON]()
+                    
+                    for restroomDict in restroomsArray {
+                        var restroomId: Int? = restroomDict["id"].int
+                        var name: String? = restroomDict["name"].string
+                        
+                        var restroom: ModelSwiftyJSON? = ModelSwiftyJSON(restroomId: restroomId!, name: name!)
+                        restrooms.append(restroom!)
+                    }
+                    
+                    println(restrooms[0])
                 }
         }
     }
