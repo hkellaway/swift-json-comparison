@@ -1,5 +1,5 @@
 //
-//  RepoSwiftyJSON.swift
+//  RepoArgo.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -23,17 +23,39 @@
 // THE SOFTWARE.
 //
 
-import Foundation
+import Argo
+import Runes
 
-struct RepoSwiftyJSON {
+struct RepoArgo {
     let repoId: Int
     let name: String
     let desc: String?
     let url: NSURL
+    let owner: OwnerArgo
 }
 
-extension RepoSwiftyJSON: Printable {
+extension RepoArgo: Decodable {
+    static func create(repoId: Int)(name: String)(desc: String?)(urlString: String)(owner: OwnerArgo) -> RepoArgo {
+        
+        return RepoArgo(repoId: repoId, name: name, desc: desc, url: urlFromString(urlString)!, owner: owner)
+    }
+    
+    static func decode(j: JSON) -> Decoded<RepoArgo> {
+        return RepoArgo.create
+            <^> j <| "id"
+            <*> j <| "name"
+            <*> j <|? "description"
+            <*> j <| "html_url"
+            <*> j <| "owner"
+    }
+    
+    private static func urlFromString(str: String) -> NSURL? {
+        return NSURL(string: str)
+    }
+}
+
+extension RepoArgo: Printable {
     var description: String {
-        return "RepoSwiftyJSON - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)"
+        return "RepoArgo - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
     }
 }

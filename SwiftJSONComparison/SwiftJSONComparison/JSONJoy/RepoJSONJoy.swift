@@ -1,5 +1,5 @@
 //
-//  RepoArgo.swift
+//  RepoJSONJoy.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -23,37 +23,30 @@
 // THE SOFTWARE.
 //
 
-import Argo
-import Runes
+import JSONJoy
 
-struct RepoArgo {
+struct RepoJSONJoy: JSONJoy {
     let repoId: Int
     let name: String
     let desc: String?
-    let url: NSURL
-}
-
-extension RepoArgo: Decodable {
-    static func create(repoId: Int)(name: String)(desc: String?)(urlString: String) -> RepoArgo {
-        
-        return RepoArgo(repoId: repoId, name: name, desc: desc, url: urlFromString(urlString)!)
+    var url: NSURL?
+    let owner: OwnerJSONJoy
+    
+    init(_ decoder: JSONDecoder) {
+        repoId = decoder["id"].integer!
+        name = decoder["name"].string!
+        desc = decoder["description"].string
+        owner =  OwnerJSONJoy(decoder["owner"])
+        url = urlFromString(decoder["html_url"].string!)!
     }
     
-    static func decode(j: JSON) -> Decoded<RepoArgo> {
-        return RepoArgo.create
-            <^> j <| "id"
-            <*> j <| "name"
-            <*> j <|? "description"
-            <*> j <| "html_url"
-    }
-    
-    private static func urlFromString(str: String) -> NSURL? {
+    private func urlFromString(str: String) -> NSURL? {
         return NSURL(string: str)
     }
 }
 
-extension RepoArgo: Printable {
+extension RepoJSONJoy: Printable {
     var description: String {
-        return "RepoArgo - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)"
+        return "RepoJSONJoy - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\n\(owner)"
     }
 }

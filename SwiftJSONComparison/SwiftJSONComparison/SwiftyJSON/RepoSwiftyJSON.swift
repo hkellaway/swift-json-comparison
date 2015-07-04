@@ -1,5 +1,5 @@
 //
-//  RepoJSONJoy.swift
+//  RepoSwiftyJSON.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -23,28 +23,18 @@
 // THE SOFTWARE.
 //
 
-import JSONJoy
+import Foundation
 
-struct RepoJSONJoy: JSONJoy {
+struct RepoSwiftyJSON {
     let repoId: Int
     let name: String
     let desc: String?
-    var url: NSURL?
-    
-    init(_ decoder: JSONDecoder) {
-        repoId = decoder["id"].integer!
-        name = decoder["name"].string!
-        desc = decoder["description"].string
-        url = urlFromString(decoder["html_url"].string!)!
-    }
-    
-    private func urlFromString(str: String) -> NSURL? {
-        return NSURL(string: str)
-    }
+    let url: NSURL
+    let owner: OwnerSwiftyJSON
 }
 
-extension RepoJSONJoy: Printable {
+extension RepoSwiftyJSON: Printable {
     var description: String {
-        return "RepoJSONJoy - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)"
+        return "RepoSwiftyJSON - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
     }
 }
