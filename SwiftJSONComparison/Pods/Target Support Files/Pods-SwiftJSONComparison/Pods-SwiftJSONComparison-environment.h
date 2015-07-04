@@ -24,6 +24,12 @@
 #define COCOAPODS_VERSION_MINOR_Box 2
 #define COCOAPODS_VERSION_PATCH_Box 2
 
+// ObjectMapper
+#define COCOAPODS_POD_AVAILABLE_ObjectMapper
+#define COCOAPODS_VERSION_MAJOR_ObjectMapper 0
+#define COCOAPODS_VERSION_MINOR_ObjectMapper 12
+#define COCOAPODS_VERSION_PATCH_ObjectMapper 0
+
 // Runes
 #define COCOAPODS_POD_AVAILABLE_Runes
 #define COCOAPODS_VERSION_MAJOR_Runes 2
