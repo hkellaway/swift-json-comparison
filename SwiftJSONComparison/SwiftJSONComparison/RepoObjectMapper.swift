@@ -22,7 +22,7 @@ class RepoObjectMapper: Mappable {
         repoId  <- map["id"]
         name    <- map["name"]
         desc    <- map["description"]
-        url     <- map["html_url"]
+        url     <- (map["html_url"], URLTransform())
     }
 }
 
