@@ -27,7 +27,7 @@ class ViewController: UIViewController {
                     
                     let restroom: ModelArgo? = decode(json[0])
                     
-                    println(restroom!)
+                    println("Id: \(restroom!.restroomId); name: \(restroom!.name)")
                 }
         }
     }
