@@ -12,18 +12,18 @@ class ModelObjectMapper: Mappable {
     var restroomId: Int?
     var name: String?
     
-    // MARK: - Initialization
-    
     required init?(_ map: Map) {
         mapping(map)
     }
     
-    // MARK: - Protocol conformance
-    
-    // MARK: Mappable
-    
     func mapping(map: Map) {
         restroomId  <- map["id"]
         name        <- map["name"]
+    }
+}
+
+extension ModelObjectMapper: Printable {
+    var description: String {
+        return "ModelObjectMapper - restroomId: \(restroomId)\nname: \(name)"
     }
 }

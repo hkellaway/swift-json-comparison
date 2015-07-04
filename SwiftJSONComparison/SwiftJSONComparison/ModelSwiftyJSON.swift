@@ -13,6 +13,6 @@ struct ModelSwiftyJSON {
 
 extension ModelSwiftyJSON: Printable {
     var description: String {
-        return "restroomId: \(restroomId)\nname: \(name)"
+        return "ModelSwiftJSON - restroomId: \(restroomId)\nname: \(name)"
     }
 }
