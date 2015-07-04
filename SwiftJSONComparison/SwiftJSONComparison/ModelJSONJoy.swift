@@ -8,13 +8,25 @@
 
 import JSONJoy
 
+struct ModelsJSONJoy : JSONJoy {
+    var restrooms: [ModelJSONJoy]?
+
+    init(_ decoder: JSONDecoder) {
+        //we check if the array is valid then alloc our array and loop through it, creating the new address objects.
+        if let decoders = decoder.array {
+            restrooms = [ModelJSONJoy]()
+            
+            for restroomDecoder in decoders {
+                restrooms?.append(ModelJSONJoy(restroomDecoder))
+            }
+        }
+    }
+}
+
 struct ModelJSONJoy: JSONJoy {
     let restroomId: Int?
     let name: String?
     
-    init() {
-        
-    }
     init(_ decoder: JSONDecoder) {
         restroomId = decoder["id"].integer
         name = decoder["name"].string
