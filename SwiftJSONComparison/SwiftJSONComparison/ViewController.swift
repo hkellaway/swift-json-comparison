@@ -15,93 +15,91 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    enum Library:String {
+        case Argo = "Argo"
+        case JSONJoy = "JSON Joy"
+        case ObjectMapper = "Object Mapper"
+        case SwiftyJSON = "Swift JSON"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        requestFor(.Argo)
+        requestFor(.JSONJoy)
+        requestFor(.ObjectMapper)
+        requestFor(.SwiftyJSON)
+    }
+    
+    func requestFor(library: Library) {
         
-        argoRequest()
-        jsonJoyRequest()
-        objectMapperRequest()
-        swiftyJSONRequest()
+        let completion = completionForLibrary(library)
         
+        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters: nil).response(completion)
     }
     
     // MARK: Helpers
     
-    private func argoRequest() {
-        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
-            .response { (request, response, data, error) in
-                if let e = error {
-                    println("ERROR = \(e)")
-                }
-                
-                if let d: AnyObject = data {
-                    
-                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
-                    
-                    let repo: RepoArgo? = decode(json)
-                    
-                    println(repo!)
-                }
+    private func completionForLibrary(library: Library) -> ((NSURLRequest, NSHTTPURLResponse?, AnyObject?, NSError?) -> ()) {
+        switch library {
+        case .Argo:
+                return argoResponseHandler
+        case .JSONJoy:
+                return jsonJoyResponseHandler
+        case .ObjectMapper:
+            return objectMapperResponseHandler
+        case .SwiftyJSON:
+            return swiftyJSONResponseHandler
         }
     }
     
-    private func jsonJoyRequest() {
-        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
-            .response { (request, response, data, error) in
-                if let e = error {
-                    println("ERROR = \(e)")
-                }
-                
-                if let d: AnyObject = data {
-                    
-                    let repo = RepoJSONJoy(JSONDecoder(d))
-                    
-                    println(repo)
-                }
+    private func argoResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
+        if let d: AnyObject = data {
+            
+            let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+            
+            let repo: RepoArgo? = decode(json)
+            
+            println(repo!)
         }
     }
     
-    private func objectMapperRequest() {
-        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
-            .response { (request, response, data, error) in
-                if let e = error {
-                    println("ERROR = \(e)")
-                }
-                
-                if let d: AnyObject = data {
-                
-                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
-                
-                    let repo = Mapper<RepoObjectMapper>().map(json)
-                    
-                    println(repo!)
-                }
+    private func jsonJoyResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
+        if let d: AnyObject = data {
+    
+            let repo = RepoJSONJoy(JSONDecoder(d))
+    
+            println(repo)
         }
     }
     
-    private func swiftyJSONRequest() {
-        Alamofire.request(.GET, "https://api.github.com/repos/hkellaway/swift-json-comparison", parameters:nil)
-            .response { (request, response, data, error) in
-                if let e = error {
-                    println("ERROR = \(e)")
-                }
+    private func objectMapperResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
+        if let d: AnyObject = data {
+            
+            let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(d as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+            
+            let repo = Mapper<RepoObjectMapper>().map(json)
+            
+            println(repo!)
+        }
+    }
+    
+    private func swiftyJSONResponseHandler(request: NSURLRequest, response: NSHTTPURLResponse?, data: AnyObject?, error: NSError?) {
+        if let d: AnyObject = data {
+            
+            let json = JSON(data: d as! NSData, options: .allZeros, error: nil)
+            
+            if let repoDict = json.dictionary {
                 
-                if let d: AnyObject = data {
+                let repoId = repoDict["id"]!.int!
+                let name = repoDict["name"]!.string!
+                let desc = repoDict["description"]!.string!
+                let url = repoDict["html_url"]!.URL!
                 
-                    let json = JSON(data: d as! NSData, options: .allZeros, error: nil)
-
-                    if let repoDict = json.dictionary {
-                        
-                        let repoId = repoDict["id"]!.int!
-                        let name = repoDict["name"]!.string!
-                        let desc = repoDict["description"]!.string!
-                        let url = repoDict["html_url"]!.URL!
-                        
-                        let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
-                    
-                        println(repo)
-                    }
-                }
+                let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url)
+                
+                println(repo)
+            }
         }
     }
 }
