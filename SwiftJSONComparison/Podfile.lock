@@ -1,0 +1,16 @@
+PODS:
+  - Argo (1.0.3):
+    - Box (~> 1.2)
+    - Runes (>= 1.2.2)
+  - Box (1.2.2)
+  - Runes (2.0.0)
+
+DEPENDENCIES:
+  - Argo (= 1.0.3)
+
+SPEC CHECKSUMS:
+  Argo: 480471806cf73d4074fcb94751482cd6c139ba3c
+  Box: a92e8aa4c099e6bc0733829665caf9e668ef53b8
+  Runes: 4fe81355f4620b76b02176222d264b33e60dba51
+
+COCOAPODS: 0.37.2
