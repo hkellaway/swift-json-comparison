@@ -30,10 +30,11 @@ struct RepoSwiftyJSON {
     let name: String
     let desc: String?
     let url: NSURL
-    let owner: OwnerSwiftyJSON
+    let owner: RepoOwnerSwiftyJSON
 }
 
 extension RepoSwiftyJSON: Printable {
+    
     var description: String {
         return "RepoSwiftyJSON - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
     }

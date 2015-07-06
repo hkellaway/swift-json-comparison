@@ -1,5 +1,5 @@
 //
-//  OwnerArgo.swift
+//  RepoOwnerSwiftyJSON.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -23,29 +23,16 @@
 // THE SOFTWARE.
 //
 
-import Argo
-import Runes
+import Foundation
 
-struct OwnerArgo {
+struct RepoOwnerSwiftyJSON {
     let ownerId: Int
     let username: String
 }
 
-extension OwnerArgo: Decodable {
-    static func create(ownerId: Int)(username: String) -> OwnerArgo {
-        
-        return OwnerArgo(ownerId: ownerId, username: username)
-    }
+extension RepoOwnerSwiftyJSON: Printable {
     
-    static func decode(j: JSON) -> Decoded<OwnerArgo> {
-        return OwnerArgo.create
-            <^> j <| "id"
-            <*> j <| "login"
-    }
-}
-
-extension OwnerArgo: Printable {
     var description: String {
-        return "OwnerArgo - ownerId: \(ownerId); username: \(username)"
+        return "RepoOwnerSwiftyJSON - ownerId: \(ownerId); name: \(username)"
     }
 }

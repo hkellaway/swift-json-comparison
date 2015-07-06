@@ -31,11 +31,11 @@ struct RepoArgo {
     let name: String
     let desc: String?
     let url: NSURL
-    let owner: OwnerArgo
+    let owner: RepoOwnerArgo
 }
 
 extension RepoArgo: Decodable {
-    static func create(repoId: Int)(name: String)(desc: String?)(urlString: String)(owner: OwnerArgo) -> RepoArgo {
+    static func create(repoId: Int)(name: String)(desc: String?)(urlString: String)(owner: RepoOwnerArgo) -> RepoArgo {
         
         return RepoArgo(repoId: repoId, name: name, desc: desc, url: urlFromString(urlString)!, owner: owner)
     }
@@ -55,7 +55,9 @@ extension RepoArgo: Decodable {
 }
 
 extension RepoArgo: Printable {
+    
     var description: String {
+        
         return "RepoArgo - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
     }
 }

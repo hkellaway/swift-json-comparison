@@ -29,23 +29,27 @@ struct RepoJSONJoy: JSONJoy {
     let repoId: Int
     let name: String
     let desc: String?
-    var url: NSURL?
-    let owner: OwnerJSONJoy
+    let url: NSURL
+    let owner: RepoOwnerJSONJoy
     
     init(_ decoder: JSONDecoder) {
         repoId = decoder["id"].integer!
         name = decoder["name"].string!
         desc = decoder["description"].string
-        owner =  OwnerJSONJoy(decoder["owner"])
-        url = urlFromString(decoder["html_url"].string!)!
+        url = decoder.urlFromString(decoder["html_url"].string!)!
+        owner =  RepoOwnerJSONJoy(decoder["owner"])
     }
+}
+
+extension JSONDecoder {
     
-    private func urlFromString(str: String) -> NSURL? {
+    func urlFromString(str: String) -> NSURL? {
         return NSURL(string: str)
     }
 }
 
 extension RepoJSONJoy: Printable {
+    
     var description: String {
         return "RepoJSONJoy - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\n\(owner)"
     }

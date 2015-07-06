@@ -30,7 +30,7 @@ class RepoObjectMapper: Mappable {
     var name: String?
     var desc: String?
     var url: NSURL?
-    var owner: OwnerObjectMapper?
+    var owner: RepoOwnerObjectMapper?
     
     required init?(_ map: Map) {
         mapping(map)
@@ -46,6 +46,7 @@ class RepoObjectMapper: Mappable {
 }
 
 extension RepoObjectMapper: Printable {
+    
     var description: String {
         return "RepoObjectMapper - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"
     }

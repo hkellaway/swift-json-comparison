@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         requestWith(.Argo)
@@ -83,11 +84,14 @@ class ViewController: UIViewController {
     
     private func argoResponseHandler(data: AnyObject) {
         
-        let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil) as! NSDictionary
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        
+        if let j: AnyObject = json {
             
-        let repo: RepoArgo? = decode(json)
+            let repo: RepoArgo? = decode(j)
             
-        println(repo!)
+            println(repo!)
+        }
     }
     
     private func jsonJoyResponseHandler(data: AnyObject) {
@@ -100,35 +104,36 @@ class ViewController: UIViewController {
     private func objectMapperResponseHandler(data: AnyObject) {
         
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        
+        if let j: AnyObject = json {
             
-        let repo = Mapper<RepoObjectMapper>().map(json)
+            let repo = Mapper<RepoObjectMapper>().map(j)
             
-        println(repo!)
+            println(repo!)
+        }
     }
     
     private func swiftyJSONResponseHandler(data: AnyObject) {
         
         let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
-        var repo: RepoSwiftyJSON?
             
         if let repoDict = json.dictionary {
-                
-            let repoId = repoDict["id"]!.int!
-            let name = repoDict["name"]!.string!
-            let desc = repoDict["description"]!.string!
-            let url = repoDict["html_url"]!.URL!
-            var owner: OwnerSwiftyJSON?
             
             if let ownerDict = repoDict["owner"]?.dictionary {
+                
                 let ownerId = ownerDict["id"]!.int!
                 let username = ownerDict["login"]!.string!
+                let repoId = repoDict["id"]!.int!
+                let name = repoDict["name"]!.string!
+                let desc = repoDict["description"]!.string!
+                let url = repoDict["html_url"]!.URL!
                 
-                owner = OwnerSwiftyJSON(ownerId: ownerId, username: username)
+                let owner = RepoOwnerSwiftyJSON(ownerId: ownerId, username: username)
                 
-                repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url, owner: owner!)
+                let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url, owner: owner)
+                
+                println(repo)
             }
         }
-        
-        println(repo!)
     }
 }
