@@ -13,13 +13,13 @@
 		DC546A511B484FC400284708 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC546A501B484FC400284708 /* Images.xcassets */; };
 		DC546A541B484FC400284708 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC546A521B484FC400284708 /* LaunchScreen.xib */; };
 		DC546A601B484FC500284708 /* SwiftJSONComparisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */; };
-		DCE6F59A1B48A63A00A6E22A /* OwnerArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5981B48A63A00A6E22A /* OwnerArgo.swift */; };
+		DCE6F59A1B48A63A00A6E22A /* RepoOwnerArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5981B48A63A00A6E22A /* RepoOwnerArgo.swift */; };
 		DCE6F59B1B48A63A00A6E22A /* RepoArgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5991B48A63A00A6E22A /* RepoArgo.swift */; };
-		DCE6F59F1B48A64B00A6E22A /* OwnerJSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F59D1B48A64B00A6E22A /* OwnerJSONJoy.swift */; };
+		DCE6F59F1B48A64B00A6E22A /* RepoOwnerJSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F59D1B48A64B00A6E22A /* RepoOwnerJSONJoy.swift */; };
 		DCE6F5A01B48A64B00A6E22A /* RepoJSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F59E1B48A64B00A6E22A /* RepoJSONJoy.swift */; };
-		DCE6F5A41B48A65500A6E22A /* OwnerObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A21B48A65500A6E22A /* OwnerObjectMapper.swift */; };
+		DCE6F5A41B48A65500A6E22A /* RepoOwnerObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A21B48A65500A6E22A /* RepoOwnerObjectMapper.swift */; };
 		DCE6F5A51B48A65500A6E22A /* RepoObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A31B48A65500A6E22A /* RepoObjectMapper.swift */; };
-		DCE6F5A91B48A66000A6E22A /* OwnerSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A71B48A66000A6E22A /* OwnerSwiftyJSON.swift */; };
+		DCE6F5A91B48A66000A6E22A /* RepoOwnerSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A71B48A66000A6E22A /* RepoOwnerSwiftyJSON.swift */; };
 		DCE6F5AA1B48A66000A6E22A /* RepoSwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6F5A81B48A66000A6E22A /* RepoSwiftyJSON.swift */; };
 		F5572EE75A4014D0DA06EF90 /* Pods_SwiftJSONComparison.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -47,13 +47,13 @@
 		DC546A591B484FC400284708 /* SwiftJSONComparisonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftJSONComparisonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC546A5E1B484FC400284708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC546A5F1B484FC500284708 /* SwiftJSONComparisonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftJSONComparisonTests.swift; sourceTree = "<group>"; };
-		DCE6F5981B48A63A00A6E22A /* OwnerArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerArgo.swift; sourceTree = "<group>"; };
+		DCE6F5981B48A63A00A6E22A /* RepoOwnerArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoOwnerArgo.swift; sourceTree = "<group>"; };
 		DCE6F5991B48A63A00A6E22A /* RepoArgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoArgo.swift; sourceTree = "<group>"; };
-		DCE6F59D1B48A64B00A6E22A /* OwnerJSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerJSONJoy.swift; sourceTree = "<group>"; };
+		DCE6F59D1B48A64B00A6E22A /* RepoOwnerJSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoOwnerJSONJoy.swift; sourceTree = "<group>"; };
 		DCE6F59E1B48A64B00A6E22A /* RepoJSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoJSONJoy.swift; sourceTree = "<group>"; };
-		DCE6F5A21B48A65500A6E22A /* OwnerObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerObjectMapper.swift; sourceTree = "<group>"; };
+		DCE6F5A21B48A65500A6E22A /* RepoOwnerObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoOwnerObjectMapper.swift; sourceTree = "<group>"; };
 		DCE6F5A31B48A65500A6E22A /* RepoObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoObjectMapper.swift; sourceTree = "<group>"; };
-		DCE6F5A71B48A66000A6E22A /* OwnerSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerSwiftyJSON.swift; sourceTree = "<group>"; };
+		DCE6F5A71B48A66000A6E22A /* RepoOwnerSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoOwnerSwiftyJSON.swift; sourceTree = "<group>"; };
 		DCE6F5A81B48A66000A6E22A /* RepoSwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSwiftyJSON.swift; sourceTree = "<group>"; };
 		F45AA09475B8B60FBB69EFA4 /* Pods_SwiftJSONComparison.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftJSONComparison.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -159,8 +159,8 @@
 		DCE6F5971B48A63A00A6E22A /* Argo */ = {
 			isa = PBXGroup;
 			children = (
-				DCE6F5981B48A63A00A6E22A /* OwnerArgo.swift */,
 				DCE6F5991B48A63A00A6E22A /* RepoArgo.swift */,
+				DCE6F5981B48A63A00A6E22A /* RepoOwnerArgo.swift */,
 			);
 			path = Argo;
 			sourceTree = "<group>";
@@ -168,8 +168,8 @@
 		DCE6F59C1B48A64B00A6E22A /* JSONJoy */ = {
 			isa = PBXGroup;
 			children = (
-				DCE6F59D1B48A64B00A6E22A /* OwnerJSONJoy.swift */,
 				DCE6F59E1B48A64B00A6E22A /* RepoJSONJoy.swift */,
+				DCE6F59D1B48A64B00A6E22A /* RepoOwnerJSONJoy.swift */,
 			);
 			path = JSONJoy;
 			sourceTree = "<group>";
@@ -177,8 +177,8 @@
 		DCE6F5A11B48A65500A6E22A /* ObjectMapper */ = {
 			isa = PBXGroup;
 			children = (
-				DCE6F5A21B48A65500A6E22A /* OwnerObjectMapper.swift */,
 				DCE6F5A31B48A65500A6E22A /* RepoObjectMapper.swift */,
+				DCE6F5A21B48A65500A6E22A /* RepoOwnerObjectMapper.swift */,
 			);
 			path = ObjectMapper;
 			sourceTree = "<group>";
@@ -186,8 +186,8 @@
 		DCE6F5A61B48A66000A6E22A /* SwiftyJSON */ = {
 			isa = PBXGroup;
 			children = (
-				DCE6F5A71B48A66000A6E22A /* OwnerSwiftyJSON.swift */,
 				DCE6F5A81B48A66000A6E22A /* RepoSwiftyJSON.swift */,
+				DCE6F5A71B48A66000A6E22A /* RepoOwnerSwiftyJSON.swift */,
 			);
 			path = SwiftyJSON;
 			sourceTree = "<group>";
@@ -344,14 +344,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCE6F5A01B48A64B00A6E22A /* RepoJSONJoy.swift in Sources */,
-				DCE6F5A91B48A66000A6E22A /* OwnerSwiftyJSON.swift in Sources */,
+				DCE6F5A91B48A66000A6E22A /* RepoOwnerSwiftyJSON.swift in Sources */,
 				DCE6F59B1B48A63A00A6E22A /* RepoArgo.swift in Sources */,
-				DCE6F59F1B48A64B00A6E22A /* OwnerJSONJoy.swift in Sources */,
+				DCE6F59F1B48A64B00A6E22A /* RepoOwnerJSONJoy.swift in Sources */,
 				DCE6F5A51B48A65500A6E22A /* RepoObjectMapper.swift in Sources */,
 				DC546A4C1B484FC400284708 /* ViewController.swift in Sources */,
 				DC546A4A1B484FC400284708 /* AppDelegate.swift in Sources */,
-				DCE6F5A41B48A65500A6E22A /* OwnerObjectMapper.swift in Sources */,
-				DCE6F59A1B48A63A00A6E22A /* OwnerArgo.swift in Sources */,
+				DCE6F5A41B48A65500A6E22A /* RepoOwnerObjectMapper.swift in Sources */,
+				DCE6F59A1B48A63A00A6E22A /* RepoOwnerArgo.swift in Sources */,
 				DCE6F5AA1B48A66000A6E22A /* RepoSwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

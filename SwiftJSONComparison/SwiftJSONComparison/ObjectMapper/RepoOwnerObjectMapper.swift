@@ -1,5 +1,5 @@
 //
-//  OwnerJSONJoy.swift
+//  RepoOwnerObjectMapper.swift
 //  SwiftJSONComparison
 //
 // Copyright (c) 2015 Harlan Kellaway
@@ -23,20 +23,25 @@
 // THE SOFTWARE.
 //
 
-import JSONJoy
+import ObjectMapper
 
-struct OwnerJSONJoy: JSONJoy {
-    let ownerId: Int
-    let username: String
+class RepoOwnerObjectMapper: Mappable {
+    var ownerId: Int?
+    var username: String?
     
-    init(_ decoder: JSONDecoder) {
-        ownerId = decoder["id"].integer!
-        username = decoder["login"].string!
+    required init?(_ map: Map) {
+        mapping(map)
+    }
+    
+    func mapping(map: Map) {
+        ownerId     <- map["id"]
+        username    <- map["login"]
     }
 }
 
-extension OwnerJSONJoy: Printable {
+extension RepoOwnerObjectMapper: Printable {
+    
     var description: String {
-        return "OwnerJSONJoy - ownerId: \(ownerId); username: \(username)"
+        return "RepoOwnerObjectMapper - ownerId: \(ownerId); username: \(username)"
     }
 }
