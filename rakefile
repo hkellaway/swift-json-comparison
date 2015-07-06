@@ -1,0 +1,6 @@
+desc "Builds and runs tests."
+# Usage: rake build
+task :build do
+  system "xctool test -workspace SwiftJSONComparison/SwiftJSONComparison.xcworkspace -scheme SwiftJSONComparison -sdk iphonesimulator8.3"
+  puts "Build attempt complete."
+end

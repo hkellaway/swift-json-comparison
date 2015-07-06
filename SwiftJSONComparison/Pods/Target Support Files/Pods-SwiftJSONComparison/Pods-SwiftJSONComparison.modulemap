@@ -1,0 +1,6 @@
+framework module Pods_SwiftJSONComparison {
+  umbrella header "Pods-SwiftJSONComparison-umbrella.h"
+
+  export *
+  module * { export * }
+}
