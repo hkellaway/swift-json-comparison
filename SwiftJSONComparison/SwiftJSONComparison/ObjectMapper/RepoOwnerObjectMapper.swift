@@ -39,7 +39,7 @@ class RepoOwnerObjectMapper: Mappable {
     }
 }
 
-extension RepoOwnerObjectMapper: Printable {
+extension RepoOwnerObjectMapper: CustomStringConvertible {
     
     var description: String {
         return "RepoOwnerObjectMapper - ownerId: \(ownerId); username: \(username)"

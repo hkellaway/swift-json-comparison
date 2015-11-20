@@ -45,7 +45,7 @@ class RepoObjectMapper: Mappable {
     }
 }
 
-extension RepoObjectMapper: Printable {
+extension RepoObjectMapper: CustomStringConvertible {
     
     var description: String {
         return "RepoObjectMapper - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"

@@ -30,7 +30,7 @@ struct RepoOwnerSwiftyJSON {
     let username: String
 }
 
-extension RepoOwnerSwiftyJSON: Printable {
+extension RepoOwnerSwiftyJSON: CustomStringConvertible {
     
     var description: String {
         return "RepoOwnerSwiftyJSON - ownerId: \(ownerId); name: \(username)"

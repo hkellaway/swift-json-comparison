@@ -48,7 +48,7 @@ extension JSONDecoder {
     }
 }
 
-extension RepoJSONJoy: Printable {
+extension RepoJSONJoy: CustomStringConvertible {
     
     var description: String {
         return "RepoJSONJoy - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\n\(owner)"

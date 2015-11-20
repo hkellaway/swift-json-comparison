@@ -35,7 +35,7 @@ struct RepoOwnerJSONJoy: JSONJoy {
     }
 }
 
-extension RepoOwnerJSONJoy: Printable {
+extension RepoOwnerJSONJoy: CustomStringConvertible {
     
     var description: String {
         return "RepoOwnerJSONJoy - ownerId: \(ownerId); username: \(username)"

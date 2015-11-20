@@ -44,7 +44,7 @@ extension RepoOwnerArgo: Decodable {
     }
 }
 
-extension RepoOwnerArgo: Printable {
+extension RepoOwnerArgo: CustomStringConvertible {
     
     var description: String {
         return "RepoOwnerArgo - ownerId: \(ownerId); username: \(username)"

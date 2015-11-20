@@ -3,8 +3,28 @@
 //  ObjectMapper
 //
 //  Created by Tristan Himmelman on 2014-10-09.
-//  Copyright (c) 2014 hearst. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014-2015 Hearst
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 
@@ -18,114 +38,27 @@ public enum MappingType {
 	case ToJSON
 }
 
-
-/// A class used for holding mapping data
-public final class Map {
-	public let mappingType: MappingType
-
-	var JSONDictionary: [String : AnyObject] = [:]
-	var currentValue: AnyObject?
-	var currentKey: String?
-
-	/// Counter for failing cases of deserializing values to `let` properties.
-	private var failedCount: Int = 0
-
-	private init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
-		self.mappingType = mappingType
-		self.JSONDictionary = JSONDictionary
-	}
-	
-	
-	/// Sets the current mapper value and key.
-	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
-	public subscript(key: String) -> Map {
-		// save key and value associated to it
-		currentKey = key
-		// break down the components of the key
-		currentValue = valueFor(key.componentsSeparatedByString("."), JSONDictionary)
-		
-		return self
-	}
-
-	// MARK: Immutable Mapping
-
-	public func value<T>() -> T? {
-		return currentValue as? T
-	}
-
-	public func valueOr<T>(@autoclosure defaultValue: () -> T) -> T {
-		return value() ?? defaultValue()
-	}
-
-	/// Returns current JSON value of type `T` if it is existing, or returns a
-	/// unusable proxy value for `T` and collects failed count.
-	public func valueOrFail<T>() -> T {
-		if let value: T = value() {
-			return value
-		} else {
-			// Collects failed count
-			failedCount++
-
-			// Returns dummy memory as a proxy for type `T`
-			let pointer = UnsafeMutablePointer<T>.alloc(0)
-			pointer.dealloc(0)
-			return pointer.memory
-		}
-	}
-
-	/// Returns whether the receiver is success or failure.
-	public var isValid: Bool {
-		return failedCount == 0
-	}
-}
-
-/// Fetch value from JSON dictionary, loop through them until we reach the desired object.
-private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObject]) -> AnyObject? {
-	// Implement it as a tail recursive function.
-
-	if keyPathComponents.isEmpty {
-		return nil
-	}
-
-	if let object: AnyObject = dictionary[keyPathComponents.first!] {
-		switch object {
-		case is NSNull:
-			return nil
-
-		case let dict as [String : AnyObject] where keyPathComponents.count > 1:
-			let tail = Array(keyPathComponents[1..<keyPathComponents.count])
-			return valueFor(tail, dict)
-
-		default:
-			return object
-		}
-	}
-
-	return nil
-}
-
 /// The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
 public final class Mapper<N: Mappable> {
-	public init(){
-
-	}
+	
+	public init(){}
 	
 	// MARK: Mapping functions that map to an existing object toObject
 	
-	/// Map a JSON string onto an existing object
-	public func map(JSONString: String, var toObject object: N) -> N {
-		if let JSON = parseJSONDictionary(JSONString) {
-			return map(JSON, toObject: object)
-		}
-		return object
-	}
-	
 	/// Maps a JSON object to an existing Mappable object if it is a JSON dictionary, or returns the passed object as is
-	public func map(JSON: AnyObject?, var toObject object: N) -> N {
+	public func map(JSON: AnyObject?, toObject object: N) -> N {
 		if let JSON = JSON as? [String : AnyObject] {
 			return map(JSON, toObject: object)
 		}
 		
+		return object
+	}
+	
+	/// Map a JSON string onto an existing object
+	public func map(JSONString: String, toObject object: N) -> N {
+		if let JSON = parseJSONDictionary(JSONString) {
+			return map(JSON, toObject: object)
+		}
 		return object
 	}
 	
@@ -139,20 +72,27 @@ public final class Mapper<N: Mappable> {
 
 	//MARK: Mapping functions that create an object
 	
+	/// Map an optional JSON string to an object that conforms to Mappable
+	public func map(JSONString: String?) -> N? {
+		if let JSONString = JSONString {
+			return map(JSONString)
+		}
+		
+		return nil
+	}
+	
 	/// Map a JSON string to an object that conforms to Mappable
 	public func map(JSONString: String) -> N? {
 		if let JSON = parseJSONDictionary(JSONString) {
 			return map(JSON)
 		}
+		
 		return nil
 	}
 	
 	/// Map a JSON NSString to an object that conforms to Mappable
 	public func map(JSONString: NSString) -> N? {
-		if let string = JSONString as? String {
-			return map(string)
-		}
-		return nil
+		return map(JSONString as String)
 	}
 	
 	/// Maps a JSON object to a Mappable object if it is a JSON dictionary or NSString, or returns nil.
@@ -167,14 +107,17 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
-		let object = N(map)
-		return object
+		if var object = N(map) {
+			object.mapping(map)
+			return object
+		}
+		return nil
 	}
 
-	//MARK: Mapping functions for Arrays and Dictionaries
+	// MARK: Mapping functions for Arrays and Dictionaries
 	
 	/// Maps a JSON array to an object that conforms to Mappable
-	public func mapArray(JSONString: String) -> [N] {
+	public func mapArray(JSONString: String) -> [N]? {
 		let parsedJSON: AnyObject? = parseJSONString(JSONString)
 
 		if let objectArray = mapArray(parsedJSON) {
@@ -187,9 +130,18 @@ public final class Mapper<N: Mappable> {
 			return [object]
 		}
 
-		return []
+		return nil
 	}
-
+	
+	/// Maps a optional JSON String into an array of objects that conforms to Mappable
+	public func mapArray(JSONString: String?) -> [N]? {
+		if let JSONString = JSONString {
+			return mapArray(JSONString)
+		}
+		
+		return nil
+	}
+	
 	/// Maps a JSON object to an array of Mappable objects if it is an array of JSON dictionary, or returns nil.
 	public func mapArray(JSON: AnyObject?) -> [N]? {
 		if let JSONArray = JSON as? [[String : AnyObject]] {
@@ -200,11 +152,12 @@ public final class Mapper<N: Mappable> {
 	}
 	
 	/// Maps an array of JSON dictionary to an array of Mappable objects
-	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
+	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N]? {
 		// map every element in JSON array to type N
-		return JSONArray.filterMap(map)
+		let result = JSONArray.flatMap(map)
+		return result
 	}
-
+	
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
 	public func mapDictionary(JSON: AnyObject?) -> [String : N]? {
 		if let JSONDictionary = JSON as? [String : [String : AnyObject]] {
@@ -215,9 +168,14 @@ public final class Mapper<N: Mappable> {
 	}
 
 	/// Maps a JSON dictionary of dictionaries to a dictionary of Mappble objects
-	public func mapDictionary(JSONDictionary: [String : [String : AnyObject]]) -> [String : N] {
+	public func mapDictionary(JSONDictionary: [String : [String : AnyObject]]) -> [String : N]? {
 		// map every value in dictionary to type N
-		return JSONDictionary.filterMap(map)
+		let result = JSONDictionary.filterMap(map)
+		if result.isEmpty == false {
+			return result
+		}
+		
+		return nil
 	}
 	
 	/// Maps a JSON object to a dictionary of arrays of Mappable objects
@@ -230,61 +188,34 @@ public final class Mapper<N: Mappable> {
 	}
 	
 	///Maps a JSON dictionary of arrays to a dictionary of arrays of Mappable objects
-	public func mapDictionaryOfArrays(JSONDictionary: [String : [[String : AnyObject]]]) -> [String : [N]] {
+	public func mapDictionaryOfArrays(JSONDictionary: [String : [[String : AnyObject]]]) -> [String : [N]]? {
 		// map every value in dictionary to type N
-		return JSONDictionary.filterMap({ mapArray($0) })
-	}
-
-	// MARK: Functions that create JSON from objects
-	
-	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
-	public func toJSON(var object: N) -> [String : AnyObject] {
-		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
-		object.mapping(map)
-		return map.JSONDictionary
-	}
-	
-	///Maps an array of Objects to an array of JSON dictionaries [[String : AnyObject]]
-	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
-		return array.map {
-			// convert every element in array to JSON dictionary equivalent
-			self.toJSON($0)
+		let result = JSONDictionary.filterMap {
+            mapArray($0)
+        }
+        
+		if result.isEmpty == false {
+			return result
 		}
-	}
-
-	///Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
-	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
-		return dictionary.map { k, v in
-			// convert every value in dictionary to its JSON dictionary equivalent			
-			return (k, self.toJSON(v))
-		}
+        
+		return nil
 	}
 	
-	///Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
-	public func toJSONDictionaryOfArrays(dictionary: [String : [N]]) -> [String : [[String : AnyObject]]] {
-		return dictionary.map { k, v in
-			// convert every value (array) in dictionary to its JSON dictionary equivalent
-			return (k, self.toJSONArray(v))
-		}
-	}
-
-	/// Maps an Object to a JSON string
-	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
-		let JSONDict = toJSON(object)
-
-		var err: NSError?
-		if NSJSONSerialization.isValidJSONObject(JSONDict) {
-			let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : .allZeros
-			let JSONData: NSData? = NSJSONSerialization.dataWithJSONObject(JSONDict, options: options, error: &err)
-			if let error = err {
-				println(error)
+	/// Maps an 2 dimentional array of JSON dictionaries to a 2 dimentional array of Mappable objects
+	public func mapArrayOfArrays(JSON: AnyObject?) -> [[N]]? {
+		if let JSONArray = JSON as? [[[String : AnyObject]]] {
+			var objectArray = [[N]]()
+			for innerJSONArray in JSONArray {
+				if let array = mapArray(innerJSONArray){
+					objectArray.append(array)
+				}
 			}
-
-			if let JSON = JSONData {
-				return NSString(data: JSON, encoding: NSUTF8StringEncoding) as? String
+			
+			if objectArray.isEmpty == false {
+				return objectArray
 			}
 		}
-
+		
 		return nil
 	}
 
@@ -309,8 +240,13 @@ public final class Mapper<N: Mappable> {
 	private func parseJSONString(JSON: String) -> AnyObject? {
 		let data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
 		if let data = data {
-			var error: NSError?
-			let parsedJSON: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
+			let parsedJSON: AnyObject?
+			do {
+				parsedJSON = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+			} catch let error {
+				print(error)
+				parsedJSON = nil
+			}
 			return parsedJSON
 		}
 
@@ -318,18 +254,126 @@ public final class Mapper<N: Mappable> {
 	}
 }
 
-extension Array {
-	internal func filterMap<U>(@noescape f: T -> U?) -> [U] {
-		var mapped = [U]()
-
-		for value in self {
-			if let newValue = f(value) {
-				mapped.append(newValue)
-			}
-		}
-
-		return mapped
+extension Mapper {
+    
+	// MARK: Functions that create JSON from objects	
+	
+	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
+	public func toJSON(var object: N) -> [String : AnyObject] {
+		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
+		object.mapping(map)
+		return map.JSONDictionary
 	}
+	
+	///Maps an array of Objects to an array of JSON dictionaries [[String : AnyObject]]
+	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
+		return array.map {
+			// convert every element in array to JSON dictionary equivalent
+			self.toJSON($0)
+		}
+	}
+	
+	///Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
+	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
+		return dictionary.map { k, v in
+			// convert every value in dictionary to its JSON dictionary equivalent
+			return (k, self.toJSON(v))
+		}
+	}
+	
+	///Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
+	public func toJSONDictionaryOfArrays(dictionary: [String : [N]]) -> [String : [[String : AnyObject]]] {
+		return dictionary.map { k, v in
+			// convert every value (array) in dictionary to its JSON dictionary equivalent
+			return (k, self.toJSONArray(v))
+		}
+	}
+	
+	/// Maps an Object to a JSON string
+	public func toJSONString(object: N) -> String? {
+		return toJSONString(object, prettyPrint: false)
+	}
+	
+	/// Maps an Object to a JSON string with option of pretty formatting
+	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
+		let JSONDict = toJSON(object)
+		
+        return toJSONString(JSONDict, prettyPrint: prettyPrint)
+	}
+	
+	/// Maps an array of Objects to a JSON string
+	public func toJSONString(array: [N]) -> String? {
+		return toJSONString(array, prettyPrint: false)
+	}
+	
+    /// Maps an array of Objects to a JSON string with option of pretty formatting	
+    public func toJSONString(array: [N], prettyPrint: Bool) -> String? {
+        let JSONDict = toJSONArray(array)
+        
+        return toJSONString(JSONDict, prettyPrint: prettyPrint)
+    }
+    
+    private func toJSONString(object: AnyObject, prettyPrint: Bool) -> String? {
+        if NSJSONSerialization.isValidJSONObject(object) {
+            let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+            let JSONData: NSData?
+            do {
+                JSONData = try NSJSONSerialization.dataWithJSONObject(object, options: options)
+            } catch let error {
+                print(error)
+                JSONData = nil
+            }
+            
+            if let JSON = JSONData {
+                return String(data: JSON, encoding: NSUTF8StringEncoding)
+            }
+        }
+        return nil
+    }
+}
+
+extension Mapper where N: Hashable {
+	
+	/// Maps a JSON array to an object that conforms to Mappable
+	public func mapSet(JSONString: String) -> Set<N>? {
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		
+		if let objectArray = mapArray(parsedJSON){
+			return Set(objectArray)
+		}
+		
+		// failed to parse JSON into array form
+		// try to parse it into a dictionary and then wrap it in an array
+		if let object = map(parsedJSON) {
+			return Set([object])
+		}
+		
+		return nil
+	}
+	
+	/// Maps a JSON object to an Set of Mappable objects if it is an array of JSON dictionary, or returns nil.
+	public func mapSet(JSON: AnyObject?) -> Set<N>? {
+		if let JSONArray = JSON as? [[String : AnyObject]] {
+			return mapSet(JSONArray)
+		}
+		
+		return nil
+	}
+	
+	/// Maps an Set of JSON dictionary to an array of Mappable objects
+	public func mapSet(JSONArray: [[String : AnyObject]]) -> Set<N> {
+		// map every element in JSON array to type N
+		return Set(JSONArray.flatMap(map))
+	}
+
+	///Maps a Set of Objects to a Set of JSON dictionaries [[String : AnyObject]]
+	public func toJSONSet(set: Set<N>) -> [[String : AnyObject]] {
+		return set.map {
+			// convert every element in set to JSON dictionary equivalent
+			self.toJSON($0)
+		}
+	}
+	
 }
 
 extension Dictionary {
@@ -360,8 +404,9 @@ extension Dictionary {
 		var mapped = [Key : U]()
 
 		for (key, value) in self {
-			let newValue = f(value)
-			mapped[key] = newValue
+			if let newValue = f(value){
+				mapped[key] = newValue
+			}
 		}
 
 		return mapped

@@ -33,7 +33,7 @@ struct RepoSwiftyJSON {
     let owner: RepoOwnerSwiftyJSON
 }
 
-extension RepoSwiftyJSON: Printable {
+extension RepoSwiftyJSON: CustomStringConvertible {
     
     var description: String {
         return "RepoSwiftyJSON - repoId: \(repoId)\nname: \(name)\ndescription: \(desc)\nURL: \(url)\nowner: \(owner)"

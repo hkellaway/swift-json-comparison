@@ -239,6 +239,8 @@
 		DC546A3C1B484FC400284708 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Harlan Kellaway";
 				TargetAttributes = {

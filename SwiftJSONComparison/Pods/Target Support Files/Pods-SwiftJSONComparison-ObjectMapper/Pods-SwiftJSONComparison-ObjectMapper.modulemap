@@ -1,6 +1,0 @@
-framework module ObjectMapper {
-  umbrella header "Pods-SwiftJSONComparison-ObjectMapper-umbrella.h"
-
-  export *
-  module * { export * }
-}
