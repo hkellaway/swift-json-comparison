@@ -55,7 +55,7 @@ class ViewController: UIViewController {
             
             if let e = error {
                 
-                println("ERROR = \(e)")
+                print("ERROR = \(e)")
             }
             
             if let d: AnyObject = data {
@@ -84,13 +84,13 @@ class ViewController: UIViewController {
     
     private func argoResponseHandler(data: AnyObject) {
         
-        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(rawValue: 0))
         
         if let j: AnyObject = json {
             
             let repo: RepoArgo? = decode(j)
             
-            println(repo!)
+            print(repo!)
         }
     }
     
@@ -98,24 +98,24 @@ class ViewController: UIViewController {
         
         let repo = RepoJSONJoy(JSONDecoder(data))
     
-        println(repo)
+        print(repo)
     }
     
     private func objectMapperResponseHandler(data: AnyObject) {
         
-        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(0), error: nil)
+        let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data as! NSData, options: NSJSONReadingOptions(rawValue: 0))
         
         if let j: AnyObject = json {
             
             let repo = Mapper<RepoObjectMapper>().map(j)
             
-            println(repo!)
+            print(repo!)
         }
     }
     
     private func swiftyJSONResponseHandler(data: AnyObject) {
         
-        let json = JSON(data: data as! NSData, options: .allZeros, error: nil)
+        let json = JSON(data: data as! NSData)
             
         if let repoDict = json.dictionary {
             
@@ -132,7 +132,7 @@ class ViewController: UIViewController {
                 
                 let repo = RepoSwiftyJSON(repoId: repoId, name: name, desc: desc, url: url, owner: owner)
                 
-                println(repo)
+                print(repo)
             }
         }
     }

@@ -54,7 +54,7 @@ extension RepoArgo: Decodable {
     }
 }
 
-extension RepoArgo: Printable {
+extension RepoArgo: CustomStringConvertible {
     
     var description: String {
         

@@ -1,5 +1,4 @@
 import Foundation
-import Runes
 
 public enum JSON {
   case Object([Swift.String: JSON])
@@ -13,14 +12,7 @@ public extension JSON {
   static func parse(json: AnyObject) -> JSON {
     switch json {
     case let v as [AnyObject]: return .Array(v.map(parse))
-
-    case let v as [Swift.String: AnyObject]:
-      return .Object(reduce(v, [:]) { (var accum, elem) in
-        let parsedValue = (self.parse <^> elem.1) ?? .Null
-        accum[elem.0] = parsedValue
-        return accum
-      })
-
+    case let v as [Swift.String: AnyObject]: return .Object(v.map(parse))
     case let v as Swift.String: return .String(v)
     case let v as NSNumber: return .Number(v)
     default: return .Null
@@ -34,14 +26,14 @@ extension JSON: Decodable {
   }
 }
 
-extension JSON: Printable {
+extension JSON: CustomStringConvertible {
   public var description: Swift.String {
     switch self {
     case let .String(v): return "String(\(v))"
     case let .Number(v): return "Number(\(v))"
-    case let .Null: return "Null"
     case let .Array(a): return "Array(\(a.description))"
     case let .Object(o): return "Object(\(o.description))"
+    case .Null: return "Null"
     }
   }
 }
@@ -52,9 +44,9 @@ public func == (lhs: JSON, rhs: JSON) -> Bool {
   switch (lhs, rhs) {
   case let (.String(l), .String(r)): return l == r
   case let (.Number(l), .Number(r)): return l == r
-  case let (.Null, .Null): return true
   case let (.Array(l), .Array(r)): return l == r
   case let (.Object(l), .Object(r)): return l == r
+  case (.Null, .Null): return true
   default: return false
   }
 }
